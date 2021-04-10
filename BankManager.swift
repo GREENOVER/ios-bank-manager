@@ -149,7 +149,7 @@ class Bank {
         totalVistedCustomers = 0
     }
     
-    private func calculateTotalTime(bankTaskFunction: () -> ()) {
+    private func calculateTotalTime(bankTaskFunction: () -> Void) {
         let startTime = CFAbsoluteTimeGetCurrent()
         bankTaskFunction()
         let totalTime = CFAbsoluteTimeGetCurrent() - startTime
