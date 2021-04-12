@@ -1,7 +1,8 @@
 # iOS Bank Manager Application Project
 ### 은행 창구 업무 및 전체 은행에 대한 관리 기능을 구현한 프로젝트
+[Ground Rule](https://github.com/GREENOVER/ios-bank-manager/blob/main/GroundRule.md)
 ***
-#### What have I done?
+#### What I learned✍️
 - GCD
 - DispatchQueue
 - Operation
@@ -13,7 +14,7 @@
 - Higher-order function
 - LocalizedError
 
-#### What I learned
+#### What have I done🧑🏻‍💻
 - GCD와 오퍼레이션의 특징과 차이를 학습하였다.
 - 디스패치큐를 통해 은행 업무가 비동기적으로 처리되도록 구현하였다.
 - 세마포어를 학습하고 사용하여 전체 디스패치큐 그룹의 끝나는 시간을 계산하도록 구현하였다.
