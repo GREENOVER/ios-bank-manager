@@ -199,7 +199,7 @@
   private var semaphore = DispatchSemaphore(value: 0)
   ```
 - 원인 및 대책
-  - value의 값은 여러 용도로 사용될 수 있는데 각 스레드를 동기 시키기 위해 0을 넣어주었다. wait가 들어오면 1씩 증가시키고 signal이 동작하면 감소시켜 깨어나는 시점을 동기화 할 수 있다.
+  - value의 값은 여러 용도로 사용될 수 있는데 각 스레드를 동기 시키기 위해 0을 넣어주었다. wait가 들어오면 1씩 감소시키고 signal이 동작하면 증가시켜 깨어나는 시점을 동기화 할 수 있다. (wait를 먼저 만나게 구조적으로 구현하여 value의 값을 0을 주어 음수가 되면 스레드의 기능이 멈추고 대기하게하는것이 맞다.)
 - 고민점 (6)
   - "아래 코드를 더 안전하고 좋은 코드로 바꿔볼 수 없을까?"
   ```swift
@@ -208,8 +208,21 @@
   customers.append(Customer(waiting: number, taskTime: taskTime, priority: CustomerPriority(rawValue: Int.random(in: 1...3))!, businessType: BusinessType(rawValue: businessType)!))
   ```
 - 원인 및 대책
-  - 아래와 같이 체이닝되어 
+  - 아래와 같이 구조적으로 나눠 좀 더 안전한 코드로 발전시켰다.
+  ```swift
+  let taskTime = duration(businessType)
+  let customer = Customer(waiting: number, taskTime: taskTime, businessType: businessType, priority: customerPriority)
+  customers.append(customer)
+  ```
+- 고민점 (6)
+  - "CFAbsoluteTimeGetCurrent 함수를 사용하는것이 Date, TimeInterval 등의 타입을 사용했을 때 보다 어떤 이점이 있을까?
+  ```swift
+  private func calculateTotalTime(bankTaskFunction: () -> ()) {
+    let startTime = CFAbsoluteTimeGetCurrent()
+  }
 - 원인 및 대책
+  - 시스템의 절대 시간을 이용하는 함수로 보다 정확한 시간 계산을 할 수 있다. Date 타입을 가지고 위에서 작성한 코드처럼 startTime을 TimeInterval로 설정하고 endTime을 구해줌으로 시간을 계산해줄 수도 있지만 해당 타입은 날짜를 계산해줄때 더 많이 사용된다. 즉 프로세스가 돌아갈때 절대시간을 Date 타입을 활용한것보다 더 간편하고 정확하게 구현할 수 있다.
+
 
 
 #### InApp 📱
