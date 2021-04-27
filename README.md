@@ -74,9 +74,28 @@
     }
   }
   ```
-  
-
-
+- 문제점 (3)
+  - 각 은행원이 본사로 대출 서류 심사를 보내면 순서대로 처리가 되지 않는 문제 발생
+- 원인
+  - 본사에서 대출 서류 심사에 대해 Thread.sleep으로 시간 지연은 구현되었는데 밀려온 각 스레드에 대해 동기적으로 처리되지 않고 비동기적으로 처리가 되어 발생한 문제이다.
+- 해결방안
+  - 본사로 넘어온 스레드들을 디스패치큐 레이블로 한 그룹으로 묶어주고 해당 그룹에 있는 업무들을 동기적으로 처리되도록 수정하였다.
+  ```swift
+  class HeadOffice {
+    static let main = HeadOffice()
+    
+    let examineLoanQueue = DispatchQueue(label: "examineLoanQueue")
+    
+    private init() {}
+    
+    func examineLoan(_ customer: Customer) {
+        self.examineLoanQueue.sync {
+            print("\(customer.waiting)번 본사 대출서류 심사")
+            Thread.sleep(forTimeInterval: 0.5)
+          }
+      }
+  }
+  ```
 
 #### Thinking Point🤔
 - 고민점 (1)
