@@ -207,7 +207,9 @@
   taskTime = timeSetting(businessType)
   customers.append(Customer(waiting: number, taskTime: taskTime, priority: CustomerPriority(rawValue: Int.random(in: 1...3))!, businessType: BusinessType(rawValue: businessType)!))
   ```
-
+- 원인 및 대책
+  - 아래와 같이 체이닝되어 
+- 원인 및 대책
 
 
 #### InApp 📱
