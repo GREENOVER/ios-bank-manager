@@ -24,3 +24,50 @@
 - 에러의 지역화된 설명을 사용하였다.
 - 고차함수의 filter, sort, map 등을 학습하고 구현하였다.
 - 각 상황에 맞는 에러 처리를 구현하였다.
+
+
+#### Trouble Shooting👨‍🔧
+- 문제점 (1)
+
+
+
+#### Thinking Point🤔
+- 고민점 (1)
+  - "fatalError는 앱이 크래시 날 경우를 내포하고 있으므로 되도록 사용하지 않는 것이 좋습니다. 다른 방식으로 에러 핸들링은 없을까요?"
+  ```swift
+  guard let userInput = Int(readLine()!) else {
+      fatalError("잘못된 입력값 입니다!")
+  }
+  ```
+- 원인 및 대책
+  - 에러에 대한 처리 케이스를 따로 분리하여 LocalizedError를 상속하고 각 상황에 맞는 errorDescription을 핸들링 해줄 수 있도록 변경하였다.
+  ```swift
+  enum InputError: Error {
+    case wrongInput
+    case noInput
+    case unknown
+  }
+  extension InputError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .wrongInput:
+            return "잘못된 입력입니다. 다시 입력하세요!"
+        case .noInput:
+            return "입력값이 없습니다. 다시 입력하세요!"
+        case .unknown:
+            return "알 수 없는 입력값입니다. 다시 입력하세요!"
+         }
+      }
+  }
+  ```
+  그 후 에러 처리ㄹㄹ
+  그 후 에러
+  ```swift
+  
+
+
+
+#### InApp 📱
+![시연영상](https://user-images.githubusercontent.com/72292617/116229222-323eb900-a791-11eb-80e7-418a0fe38516.gif)
+
+
