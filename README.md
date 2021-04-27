@@ -233,7 +233,7 @@
   let customer = Customer(waiting: number, taskTime: taskTime, businessType: businessType, priority: customerPriority)
   customers.append(customer)
   ```
-- 고민점 (6)
+- 고민점 (7)
   - "CFAbsoluteTimeGetCurrent 함수를 사용하는것이 Date, TimeInterval 등의 타입을 사용했을 때 보다 어떤 이점이 있을까?
   ```swift
   private func calculateTotalTime(bankTaskFunction: () -> ()) {
